@@ -93,3 +93,36 @@ Landle uses a structure similar to Git but with some simplified terminology:
     -   **States (Commits)**: Snapshots of the project at a specific point in time. Each state points to a root Tree and a parent State, forming a history chain.
 -   **Index**: The staging area that tracks which files are ready to be saved in the next state.
 -   **HEAD**: A pointer that keeps track of your current position in the history (usually pointing to the latest state on the main branch).
+
+## Under the Hood
+
+Here is what happens internally when you run each command:
+
+### `init`
+-   Creates the `.landle` directory.
+-   Sets up the `objects` and `refs` subdirectories.
+-   Creates an empty `index` file.
+-   Creates a `HEAD` file pointing to `refs/heads/main`.
+
+### `add <file>`
+-   Reads the content of the file.
+-   Creates a **FileContent** object (hash of the content) and stores it in `.landle/objects`.
+-   Updates the `index` file to map the file path to its content hash.
+
+### `save state "<message>"`
+-   Reads the `index` to see what files are staged.
+-   Creates a **Tree** object representing the directory structure of the staged files and stores it.
+-   Reads `HEAD` to find the parent state (if any).
+-   Creates a **State** object containing the tree hash, parent hash, message, and timestamp, and stores it.
+-   Updates the current branch ref (e.g., `refs/heads/main`) to point to the new state hash.
+-   Clears the `index` so it's ready for the next set of changes.
+
+### `show states`
+-   Reads `HEAD` to find the current branch and its latest state hash.
+-   Loads the state object, prints its details, and then looks up its **parent** hash.
+-   Repeats this process backwards through the history chain until it reaches the first commit.
+
+### `state <hash>`
+-   Loads the **State** object for the given hash.
+-   Finds the **Tree** object associated with that state.
+-   Iterates through the files in the tree, retrieves their **FileContent** from the objects directory, and writes them back to your working directory, overwriting current files.
