@@ -1,8 +1,6 @@
 """
 Combine index + objects + repo
-
 Manage commits & history
-
 Restore files from state
 """
 

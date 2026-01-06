@@ -1,8 +1,6 @@
 """
 Track what files/directories are staged
-
 Store file_path → blob_hash
-
 Clear index after save_state
 """
 from typing import Dict

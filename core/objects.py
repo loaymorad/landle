@@ -1,12 +1,9 @@
 """
 Generate hash (SHA-256)
-
 Save objects to .landle/objects/
-
 Keep immutable history
-
     Blobs == FileContents: file contents
-    Trees: map file/dir names to blob/tree hashes
+    Trees: map file/dir names to FileContent/tree hashes
     Commits == States: history nodes
 """
 
@@ -20,7 +17,7 @@ class FileContent: # Stores immutable content in .landle/objects/
         self.content = data
     
     def store(self, objects_dir: str) -> str:
-        # Store the file content as a blob object and return its hash
+        # Store the file content as a FileContent object and return its hash
         
         sha = hashlib.sha256(self.content).hexdigest()
 
@@ -35,12 +32,12 @@ class FileContent: # Stores immutable content in .landle/objects/
 # ####### ###########
 
 class Tree:
-    """Tree: maps file/dir names to blob/tree hashes"""
+    """Tree: maps file/dir names to FileContent/tree hashes"""
     
     def __init__(self):
         self.entries = {
             # name: (type, hash)
-            # value: ("blob" or "tree", hash)
+            # value: ("FileContent" or "tree", hash)
         }
     
     def store(self, objects_dir: str) -> str:

@@ -10,25 +10,6 @@ Absolute path like: /home/user/project
 Relative path like: ./project
 """
 
-
-"""
-Concepts Again:
-.landle/              # Repository metadata
-    objects/          # Stored objects (FileContent (Blobs), Directories (Tree), states (Commits))
-    refs/heads/       # Branch references
-    HEAD              # Current branch reference
-    index             # Staging area
-
-    
-HEAD → refs/heads/main → abc123 (latest commit)
-HEAD is a pointer, not the commit itself.
-
-Usually, HEAD points to a branch (like refs/heads/main).
-
-That branch file (refs/heads/main) points to the latest commit hash.
-"""
-
-
 import os
 
 class Repo:
@@ -84,9 +65,9 @@ class Repo:
         return ref_line
 
         """
-        read() → reads entire file as a single string
-        readline() → reads one line at a time (returns string with \n)
-        readlines() → reads all lines into a list (each element is a line including \n)
+        read(): reads entire file as a single string
+        readline(): reads one line at a time (returns string with \n)
+        readlines(): reads all lines into a list (each element is a line including \n)
         """
 
 
