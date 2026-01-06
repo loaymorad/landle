@@ -1,6 +1,6 @@
 # Landle
 
-![Logo](https://raw.githubusercontent.com/loay/landle/main/landle.png)
+![Logo](./logo/logo.png)
 
 Landle is a lightweight, Python-based version control system designed to help you manage your project's history with ease. It provides essential version control features like initializing repositories, staging files, saving states (commits), and navigating through history.
 
